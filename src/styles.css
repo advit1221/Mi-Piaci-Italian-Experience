@@ -1,0 +1,262 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+/*
+ * Mi Piaci — rustic Italian trattoria design system.
+ * All colour values are oklch tokens. Never hardcode colours in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --font-display: "Bodoni Moda", "Times New Roman", serif;
+  --font-sans: "Work Sans", system-ui, sans-serif;
+  --font-script: "Petit Formal Script", cursive;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Brand */
+  --color-espresso: var(--espresso);
+  --color-terracotta: var(--terracotta);
+  --color-earth: var(--earth);
+  --color-parchment: var(--parchment);
+  --color-flour: var(--flour);
+  --color-linen: var(--linen);
+  --color-ink: var(--ink);
+  --color-ember: var(--ember);
+}
+
+:root {
+  --radius: 0.125rem;
+
+  --espresso: oklch(0.38 0.086 52);
+  --terracotta: oklch(0.485 0.106 54.2);
+  --earth: oklch(0.361 0.063 56.5);
+  --parchment: oklch(0.96 0.016 82.8);
+  --linen: oklch(0.928 0.023 82.1);
+  --flour: oklch(0.995 0.004 90);
+  --ink: oklch(0.192 0.014 34.4);
+  --ember: oklch(0.684 0.111 64.1);
+
+  --background: var(--flour);
+  --foreground: var(--ink);
+  --card: var(--parchment);
+  --card-foreground: var(--ink);
+  --popover: var(--parchment);
+  --popover-foreground: var(--ink);
+  --primary: var(--espresso);
+  --primary-foreground: var(--parchment);
+  --secondary: var(--linen);
+  --secondary-foreground: var(--espresso);
+  --muted: var(--linen);
+  --muted-foreground: oklch(0.5 0.03 60);
+  --accent: var(--terracotta);
+  --accent-foreground: var(--parchment);
+  --destructive: oklch(0.52 0.19 27);
+  --destructive-foreground: var(--parchment);
+  --border: oklch(0.38 0.086 52 / 18%);
+  --input: oklch(0.38 0.086 52 / 28%);
+  --ring: var(--terracotta);
+
+  --shadow-warm: 0 30px 70px -40px oklch(0.361 0.063 56.5 / 55%);
+  --gradient-oven: radial-gradient(
+    circle at 50% 85%,
+    oklch(0.684 0.111 64.1 / 55%) 0%,
+    oklch(0.485 0.106 54.2 / 35%) 35%,
+    transparent 70%
+  );
+  --gradient-hero: linear-gradient(
+    to top,
+    oklch(0.192 0.014 34.4 / 88%) 0%,
+    oklch(0.192 0.014 34.4 / 35%) 45%,
+    oklch(0.192 0.014 34.4 / 55%) 100%
+  );
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    font-synthesis-weight: none;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+  }
+
+  ::selection {
+    background: var(--terracotta);
+    color: var(--parchment);
+  }
+}
+
+/* ---------- Utilities ---------- */
+
+@utility label-xs {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+@utility script {
+  font-family: var(--font-script);
+  font-weight: 400;
+}
+
+/* Paper / plaster grain — felt, not seen */
+@utility paper {
+  position: relative;
+  isolation: isolate;
+}
+@utility paper-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
+  animation: grain-drift 14s steps(6) infinite;
+}
+
+@utility rule-thin {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    oklch(0.38 0.086 52 / 45%) 15%,
+    oklch(0.38 0.086 52 / 45%) 85%,
+    transparent
+  );
+}
+
+@utility underline-draw {
+  position: relative;
+}
+@utility underline-draw-line {
+  position: absolute;
+  left: 0;
+  bottom: -0.15em;
+  height: 1px;
+  width: 100%;
+  transform-origin: left;
+  background: currentColor;
+}
+
+@keyframes grain-drift {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-2%, 1%);
+  }
+  50% {
+    transform: translate(1%, -2%);
+  }
+  75% {
+    transform: translate(-1%, -1%);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes ember-rise {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate3d(var(--dx, 10px), -220px, 0) scale(0.4);
+    opacity: 0;
+  }
+}
+
+@keyframes steam-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scaleY(0.6);
+  }
+  35% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-26px) scaleY(1.15);
+  }
+}
+
+@keyframes glow-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+@utility ember {
+  animation: ember-rise var(--dur, 5s) linear infinite;
+}
+@utility steam-line {
+  animation: steam-rise 3.2s ease-out infinite;
+}
+@utility oven-glow {
+  animation: glow-breathe 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
